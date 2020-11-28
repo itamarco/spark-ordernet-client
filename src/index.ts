@@ -1,1 +1,3 @@
-console.log('Hello world!');
+import SparkClient from "./spark-client";
+
+module.exports = SparkClient;
