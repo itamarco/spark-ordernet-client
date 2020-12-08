@@ -36,12 +36,12 @@ const transactions = await client.getTransactions(new Date('2018-01-01T00:00:00.
 [
     {
         Account: '***',
-        Date: '2018-02-04T00:00:00',
-        Bno_Number: 5760160,
-        Ref: 995026,
+        Date: '2019-05-04T00:00:00',
+        Bno_Number: 5760130,
+        Ref: 995036,
         Sug_Bno: '10',
         Bno_Name: '7חברה לישראלאגח',
-        Nv: 9323.2,
+        Nv: 953.2,
         Action: 'הפקדה',
         Balance: 0,
         Comission: 0,
