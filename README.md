@@ -27,6 +27,7 @@ await client.auth();
 Optional - Get accountKey
 ```typescript
 const accountKey: string = await client.getAccountKey();
+client.setSparkAccountKey(accountKey);
 ```
 Get transactions
 ```typescript
@@ -55,7 +56,6 @@ const transactions = await client.getTransactions(new Date('2018-01-01T00:00:00.
 
 Get holdings
 ```typescript
-client.setSparkAccountKey(accountKey);
 const holdings = await client.getHoldings();
 
 // holdings = 
