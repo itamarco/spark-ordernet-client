@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const SparkClient = require('./index')
+import SparkClient from "./";
 
 describe('index', () => {
     it('SparkClient should be defined', () => {
@@ -9,7 +8,7 @@ describe('index', () => {
     it('SparkClient should be defined', () => {
         const client = new SparkClient({
             userId: 'uid',
-            password: 'pasword',
+            password: 'password',
             sparkHost: 'host'
         });
 
