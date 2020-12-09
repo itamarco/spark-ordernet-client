@@ -1,5 +1,8 @@
 # spark-ordernet-client - WIP
+[![npm version](https://badge.fury.io/js/spark-ordernet-client.svg)](https://badge.fury.io/js/spark-ordernet-client)
+
 Simple REST client for Spark-Ordernet API
+
 
 Tested with
 - `sparknesua.ordernet.co.il`
