@@ -72,7 +72,7 @@ export default class SparkClient {
             })
     }
 
-    async getTransactions(from: Date, to: Date = new Date(Date.now())): Promise<KeyValue> {
+    async getTransactions(from: Date, to: Date = new Date(Date.now())): Promise<KeyValue[]> {
         return this.httpClient.get(TRANSACTIONS, {
             params: {
                 accountKey: this.accountKey,
@@ -84,7 +84,7 @@ export default class SparkClient {
             .then( data => data.map(convertKeys) )
     }
 
-    getHoldings(): Promise<KeyValue> {
+    getHoldings(): Promise<KeyValue[]> {
         return this.httpClient.get(HOLDINGS_API,
             {
                 params: {accountKey: this.accountKey},
