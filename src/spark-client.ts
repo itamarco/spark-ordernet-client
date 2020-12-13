@@ -73,6 +73,7 @@ export default class SparkClient {
     }
 
     async getTransactions(from: Date, to: Date = new Date(Date.now())): Promise<KeyValue[]> {
+        this.validateAccountKey();
         return this.httpClient.get(TRANSACTIONS, {
             params: {
                 accountKey: this.accountKey,
@@ -85,6 +86,7 @@ export default class SparkClient {
     }
 
     getHoldings(): Promise<KeyValue[]> {
+        this.validateAccountKey();
         return this.httpClient.get(HOLDINGS_API,
             {
                 params: {accountKey: this.accountKey},
@@ -101,4 +103,10 @@ export default class SparkClient {
     setSparkAccountKey(accountKey: string): void {
         this.accountKey = accountKey;
     }
+
+    private validateAccountKey(): void {
+        if (!this.accountKey || this.accountKey === '')
+            throw new Error('accountKey was not set!')
+    }
+
 }
