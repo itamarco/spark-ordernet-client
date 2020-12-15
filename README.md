@@ -34,7 +34,7 @@ client.setSparkAccountKey(accountKey);
 ```
 Get transactions
 ```typescript
-const transactions = await client.getTransactions(new Date('2018-01-01T00:00:00.000Z'));
+const transactions = await client.getTransactions(new Date(2018,1,1));
 
 // transactions = 
 [

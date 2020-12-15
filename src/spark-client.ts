@@ -72,13 +72,20 @@ export default class SparkClient {
             })
     }
 
+    /**
+     * Get transactions between date interval.
+     * It seem to be that 'from' and 'to' dates should be in the same year
+     * for the API to reply with proper response
+     * @param from
+     * @param to
+     */
     async getTransactions(from: Date, to: Date = new Date(Date.now())): Promise<KeyValue[]> {
         this.validateAccountKey();
         return this.httpClient.get(TRANSACTIONS, {
             params: {
                 accountKey: this.accountKey,
                 startDate: from.toISOString(),//2018-01-01T00:00:00.000Z
-                endDate: to.toISOString(), //2020-11-19T00:00:00.000Z&
+                endDate: to.toISOString(), //2018-11-19T00:00:00.000Z&
             }
         })
             .then(res => res.data)
