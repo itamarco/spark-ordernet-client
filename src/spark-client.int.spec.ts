@@ -24,10 +24,10 @@ describe('client', () => {
 
    it('get transactions', async () => {
       client.setSparkAccountKey(accountKey);
-      const res = await client.getTransactions(new Date('2018-01-01T00:00:00.000Z'));
+      const res = await client.getTransactions(new Date(2018,1,1));
 
       expect(res).toBeInstanceOf(Array);
-      if( res.length > 0) {
+      if (res.length > 0) {
          expect(res[0]).toHaveProperty('Price');
       }
    })
@@ -37,8 +37,25 @@ describe('client', () => {
       const res = await client.getHoldings();
 
       expect(res).toBeInstanceOf(Array);
-      if( res.length > 0) {
+      if (res.length > 0) {
          expect(res[0]).toHaveProperty('COST');
       }
+   })
+
+   it('should get holdings summary', async () => {
+      client.setSparkAccountKey(accountKey);
+      const res = await client.getHoldingsSummary();
+
+      expect(res).toBeInstanceOf(Object);
+      expect(res).toHaveProperty('Cash');
+   })
+
+   it('should get securities', async () => {
+      client.setSparkAccountKey(accountKey);
+      const res = await client.getSecurities();
+
+      expect(res).toBeInstanceOf(Object);
+      expect(res).toHaveProperty('Totals');
+      expect(res.Totals).toHaveProperty('CashCurrent');
    })
 });

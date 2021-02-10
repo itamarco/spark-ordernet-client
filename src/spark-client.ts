@@ -4,10 +4,15 @@ import {ClientConfig} from "./models/client-config.interface";
 import {convertKeys} from "./response-keys-converter/data-keys-converter";
 import {KeyValue} from "./models/key-value.type";
 
-const AUTH_API = "/api/Auth/Authenticate";
-const HOLDINGS_API = "/api/Account/GetHoldings";
-const STATIC_DATA = "api/DataProvider/GetStaticData";
-const TRANSACTIONS = "/api/Account/GetAccountTransactions";
+const PATHS = {
+    AUTH_API: "/api/Auth/Authenticate",
+    HOLDINGS_API: "/api/Account/GetHoldings",
+    HOLDINGS_SUMMARY_API: "/api/Account/GetHoldingsSummery",
+    STATIC_DATA: "/api/DataProvider/GetStaticData",
+    TRANSACTIONS: "/api/Account/GetAccountTransactions",
+    SECURITIES: "/api/Account/GetAccountSecurities",
+}
+
 const USER_AGENT =
     "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/78.0.3904.97 Safari/537.36 OPR/65.0.3467.48";
 
@@ -25,9 +30,10 @@ export default class SparkClient {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json;charset=UTF-8',
                 'Referer': config.sparkHost,
-                'User-agent': USER_AGENT,
+                'User-Agent': USER_AGENT,
                 'Sec-Fetch-Mode': 'cors',
             },
+
             // validateStatus: (status: number ) => true,
         });
 
@@ -38,7 +44,7 @@ export default class SparkClient {
     }
 
     async auth(): Promise<KeyValue> {
-        return this.httpClient.post<any, any>(AUTH_API,
+        return this.httpClient.post<any, any>(PATHS.AUTH_API,
             {
                 username: this.username,
                 password: this.password,
@@ -58,7 +64,7 @@ export default class SparkClient {
     }
 
     async getAccountKey(): Promise<string> {
-        return this.httpClient.get<any, any>(STATIC_DATA)
+        return this.httpClient.get<any, any>(PATHS.STATIC_DATA)
             .then(res => res.data)
             .then(data => {
                 const accountObject = data.find(entry => entry.b === 'ACC');
@@ -81,7 +87,7 @@ export default class SparkClient {
      */
     async getTransactions(from: Date, to: Date = new Date(Date.now())): Promise<KeyValue[]> {
         this.validateAccountKey();
-        return this.httpClient.get(TRANSACTIONS, {
+        return this.httpClient.get(PATHS.TRANSACTIONS, {
             params: {
                 accountKey: this.accountKey,
                 startDate: from.toISOString(),//2018-01-01T00:00:00.000Z
@@ -92,15 +98,38 @@ export default class SparkClient {
             .then( data => data.map(convertKeys) )
     }
 
-    getHoldings(): Promise<KeyValue[]> {
+    async getHoldings(): Promise<KeyValue[]> {
         this.validateAccountKey();
-        return this.httpClient.get(HOLDINGS_API,
+        return this.httpClient.get(PATHS.HOLDINGS_API,
             {
                 params: {accountKey: this.accountKey},
             }
         )
             .then((res: any) => res.data)
             .then( data => data.map(convertKeys) )
+    }
+
+    async getHoldingsSummary(): Promise<KeyValue> {
+        this.validateAccountKey();
+        return this.httpClient.get(PATHS.HOLDINGS_SUMMARY_API,
+            {
+                params: {accountKey: this.accountKey},
+            }
+        )
+            .then((res: any) => res.data)
+            .then( convertKeys )
+    }
+
+    async getSecurities(): Promise<KeyValue> {
+        this.validateAccountKey();
+        return this.httpClient.get(PATHS.SECURITIES,
+            {
+                params: {accountKey: this.accountKey},
+            }
+        )
+            .then((res: any) => res.data)
+            .then( convertKeys )
+            .then( data => ({...data, Totals: convertKeys(data.Totals as KeyValue)}))
     }
 
     setClientBearerToken(bearerToken: string): void {
