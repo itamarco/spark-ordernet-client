@@ -11,21 +11,27 @@
     "lint": "eslint . --ext .ts",
     "test": "jest unit",
     "test:dev": "jest --watchAll",
-    "prepare" : "npm run build",
-    "prepublishOnly" : "npm test && npm run lint",
-    "preversion" : "npm run lint",
-    "version" : "npm run format && git add -A src",
-    "postversion" : "git push && git push --tags"
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion": "npm run lint",
+    "version": "npm run format && git add -A src",
+    "postversion": "git push && git push --tags"
   },
-  "files": ["dist/**/*"],
+  "files": [
+    "dist/**/*"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "npm run test && npm run lint"
     }
   },
-  "keywords": ["spark", "ordernet",
-    "spark-ordernet", "spark client",
-    "ordernet-client"],
+  "keywords": [
+    "spark",
+    "ordernet",
+    "spark-ordernet",
+    "spark client",
+    "ordernet-client"
+  ],
   "author": "Itamar Cohen",
   "repository": {
     "type": "git",
@@ -38,16 +44,16 @@
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
     "eslint": "^6.8.0",
+    "eslint-plugin-jest": "^24.1.0",
     "husky": "^4.2.3",
+    "jest": "^26.5.3",
     "nodemon": "^1.19.1",
     "onchange": "^6.1.0",
     "rimraf": "^3.0.0",
     "run-script-os": "^1.1.1",
+    "ts-jest": "^26.4.1",
     "ts-node": "^8.3.0",
-    "typescript": "^4.0.3",
-    "eslint-plugin-jest": "^24.1.0",
-    "jest": "^26.5.3",
-    "ts-jest": "^26.4.1"
+    "typescript": "^4.0.3"
   },
   "dependencies": {
     "axios": "^0.21.0"
