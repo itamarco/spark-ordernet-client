@@ -15,9 +15,17 @@ jobs:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
         with:
-          node-version: 10
+          node-version: 14
       - run: npm install
       - run: npm test
+        env:
+          SPARK_USER_ID: ${{ secrets.SPARK_USER_ID }}
+          SPARK_PASSWORD: ${{ secrets.SPARK_PASSWORD }}
+          SPARK_ACCOUNT_KEY: ${{ secrets.SPARK_ACCOUNT_KEY }}
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_AUTH_TOKEN }}
+        env:
+          SPARK_USER_ID: ${{ secrets.SPARK_USER_ID }}
+          SPARK_PASSWORD: ${{ secrets.SPARK_PASSWORD }}
+          SPARK_ACCOUNT_KEY: ${{ secrets.SPARK_ACCOUNT_KEY }}
