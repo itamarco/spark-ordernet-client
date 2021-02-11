@@ -5,11 +5,11 @@ jest.setTimeout(18000); // for 'getAccountKey
 describe('client', () => {
     const client = new SparkClient({
         sparkHost: 'https://sparkpsagot.ordernet.co.il',
-        userId: '',
-        password: '',
+        userId: process.env.SPARK_USER_ID as string,
+        password: process.env.SPARK_PASSWORD as string,
     });
 
-    const accountKey = '';
+    const accountKey = process.env.SPARK_ACCOUNT_KEY as string;
 
     it('should login', async () => {
         const res = await client.auth();
