@@ -24,7 +24,7 @@ describe('client', () => {
 
     it('get transactions', async () => {
         client.setSparkAccountKey(accountKey);
-        const res = await client.getTransactions(new Date(2018, 1, 1));
+        const res = await client.getTransactions(new Date(2019, 1, 1));
 
         expect(res).toBeInstanceOf(Array);
         expect(res.length).toBeGreaterThan(0);
