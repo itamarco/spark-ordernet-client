@@ -1,10 +1,20 @@
-import {KeyValue} from "../models/key-value.type";
-import {AuthResult, RMType, StructAccountTransaction} from "./response-maps";
+import { KeyValue } from "../models/key-value.type";
+import {
+    AuthResult,
+    RMType, 
+    StructAccountTransaction, 
+    RMTotalType, 
+    SecuritiesData, 
+    SecuritiesTotalType
+} from "./response-maps";
 
 const RESPONSE_TYPES = {
     AuthResult: AuthResult,
     StructAccountTransaction: StructAccountTransaction,
     RMType: RMType,
+    RMTotalType: RMTotalType,
+    SecuritiesData: SecuritiesData,
+    SecuritiesTotalType: SecuritiesTotalType,
 }
 
 export function convertKeys(data: KeyValue): KeyValue {

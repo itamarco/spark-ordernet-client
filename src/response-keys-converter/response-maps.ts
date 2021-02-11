@@ -1,4 +1,4 @@
-import {KeyValue} from "../models/key-value.type";
+import { KeyValue } from "../models/key-value.type";
 
 export const AuthResult: KeyValue = {
     a: "LoginStatus",
@@ -98,4 +98,44 @@ export const RMType = {
     ce: "IsNewStruct",
     cf: "BnoType",
     cg: "SugBno"
+}
+
+export const RMTotalType = {
+    a: "UpdateDate",
+    b: "AccountValue", 
+    c: "Exist_Marg", 
+    d: "Req_Marg", 
+    e: "Income", 
+    f: "Credit", 
+    g: "Cash", 
+    h: "ImmediateWithdraw", 
+    i: "UnsettledCashBuy", 
+    j: "UnsettledCashSell"
+}
+
+export const SecuritiesData = {
+    a:"Totals",b:"AssetMargins"
+}
+
+export const SecuritiesTotalType = {
+    a:"CashMorning",
+    b:"NezilimMorning",
+    c:"Premia",
+    d:"CashCurrent",
+    e:"NezilimCurrent",
+    f:"ReqMargin",
+    g:"ReqMarginMaof",
+    h:"ReqMarginHul",
+    i:"ReqMarginStocks",
+    j:"ReqMarginMatach",
+    k:"MarginCurrent",
+    l:"RezefChange",
+    m:"Misgeret",
+    n:"Harshaa",
+    o:"AccountValueMorning",
+    p:"Tax",
+    q:"AddMofLong",
+    r:"AddMofShort",
+    s:"AddRzfLong",
+    t:"AddRzfShort"
 }
