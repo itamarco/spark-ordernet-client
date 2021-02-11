@@ -3,7 +3,6 @@ import Response from "./response";
 import {ClientConfig} from "./models/client-config.interface";
 import {convertKeys} from "./response-keys-converter/data-keys-converter";
 import {KeyValue} from "./models/key-value.type";
-import curlirize from 'axios-curlirize';
 
 const PATHS = {
     AUTH_API: "api/Auth/Authenticate",
@@ -37,8 +36,6 @@ export default class SparkClient {
             // validateStatus: (status: number ) => true,
         });
         this.username = config.userId;
-
-        curlirize(this.httpClient);
         this.password = config.password;
         this.accountKey = config.accountKey || '';
         this.logger = config.logger || console;
@@ -51,11 +48,11 @@ export default class SparkClient {
                 password: this.password,
             },
         )
-            .then( res => {
-                const cookie = res.headers['set-cookie'].join(';')
-                this.httpClient.defaults.headers['Cookie'] = cookie;
-                return res;
-            })
+            // .then( res => {
+            //     const cookie = res.headers['set-cookie'].join(';')
+            //     this.httpClient.defaults.headers['Cookie'] = cookie;
+            //     return res;
+            // })
             .then(res => res.data)
             .then( convertKeys )
             .then( data => {
