@@ -37,3 +37,7 @@ jobs:
         run: npm run build
       - name: test
         run: npm test
+        env:
+          SPARK_USER_ID: ${{ secrets.SPARK_USER_ID }}
+          SPARK_PASSWORD: ${{ secrets.SPARK_PASSWORD }}
+          SPARK_ACCOUNT_KEY: ${{ secrets.SPARK_ACCOUNT_KEY }}
