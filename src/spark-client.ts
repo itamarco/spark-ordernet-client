@@ -11,6 +11,7 @@ const PATHS = {
     STATIC_DATA: "api/DataProvider/GetStaticData",
     TRANSACTIONS: "api/Account/GetAccountTransactions",
     SECURITIES: "api/Account/GetAccountSecurities",
+    CHART_DATA: "api/DataProvider/GetChartData",
 }
 
 const USER_AGENT =
@@ -133,6 +134,24 @@ export default class SparkClient {
             .then((res: any) => res.data)
             .then( convertKeys )
             .then( data => ({...data, Totals: convertKeys(data.Totals as KeyValue)}))
+    }
+
+    /**
+     * Get asset's daily prices across last 5 years
+     * @param sparkAssetId (e.g. KRN_5109889)
+     */
+    async getChartData(sparkAssetId) {
+        return this.httpClient.get(PATHS.CHART_DATA, {
+            params: {
+                uniqueTopicId: sparkAssetId,
+                chartType: 6,
+                itemCount:1825, // 365 days * 5 years
+                interval:1, // day ?
+                isOnline: false,
+            }
+        })
+            .then( res => res.data)
+            .then ( dataArray => dataArray.map( convertKeys ))
     }
 
     setClientBearerToken(bearerToken: string): void {

@@ -56,4 +56,14 @@ describe('client', () => {
         expect(res).toHaveProperty('Totals');
         expect(res.Totals).toHaveProperty('CashCurrent');
     })
+
+    it('should get chart data', async () => {
+        const res = await client.getChartData('KRN_5109889');
+
+        console.log(res)
+        expect(res).toBeInstanceOf(Array);
+        expect(res.length).toBeGreaterThan(0);
+        expect(res[0]).toHaveProperty('close')
+        expect(res[0]).toHaveProperty('time')
+    })
 });

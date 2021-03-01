@@ -5,7 +5,8 @@ import {
     StructAccountTransaction, 
     RMTotalType, 
     SecuritiesData, 
-    SecuritiesTotalType
+    SecuritiesTotalType,
+    ChartPoint,
 } from "./response-maps";
 
 const RESPONSE_TYPES = {
@@ -15,6 +16,7 @@ const RESPONSE_TYPES = {
     RMTotalType: RMTotalType,
     SecuritiesData: SecuritiesData,
     SecuritiesTotalType: SecuritiesTotalType,
+    ChartPoint: ChartPoint,
 }
 
 export function convertKeys(data: KeyValue): KeyValue {
