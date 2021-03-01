@@ -1,5 +1,5 @@
 # spark-ordernet-client
-[![npm version](https://badge.fury.io/js/spark-ordernet-client.svg)](https://badge.fury.io/js/spark-ordernet-client)
+[![npm version](https://badge.fury.io/js/spark-ordernet-client.svg)](https://www.npmjs.com/package/spark-ordernet-client)
 ![CI](https://github.com/itamarco/spark-ordernet-client/actions/workflows/ci.yml/badge.svg)
 ![npm publish](https://github.com/itamarco/spark-ordernet-client/actions/workflows/npm-publish.yml/badge.svg)
 
