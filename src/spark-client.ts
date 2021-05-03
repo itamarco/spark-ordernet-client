@@ -1,8 +1,8 @@
-import {AxiosInstance, default as axios} from 'axios';
+import { AxiosInstance, default as axios } from 'axios';
 import Response from "./response";
-import {ClientConfig} from "./models/client-config.interface";
-import {convertKeys} from "./response-keys-converter/data-keys-converter";
-import {KeyValue} from "./models/key-value.type";
+import { ClientConfig } from "./models/client-config.interface";
+import { convertKeys } from "./response-keys-converter/data-keys-converter";
+import { KeyValue } from "./models/key-value.type";
 
 const PATHS = {
     AUTH_API: "api/Auth/Authenticate",
@@ -34,7 +34,7 @@ export default class SparkClient {
                 'User-agent': USER_AGENT,
                 'Sec-Fetch-Mode': 'cors',
             },
-            // validateStatus: (status: number ) => true,
+            // validateStatus: (status: number) => status < 400,
         });
         this.username = config.userId;
         this.password = config.password;
@@ -55,9 +55,9 @@ export default class SparkClient {
             //     return res;
             // })
             .then(res => res.data)
-            .then( convertKeys )
-            .then( data => {
-                const {LoginStatus, Token} = data;
+            .then(convertKeys)
+            .then(data => {
+                const { LoginStatus, Token } = data;
                 if (LoginStatus !== 'Success') {
                     throw new Error(`Spark server failed to connect: ${LoginStatus}`);
                 }
@@ -99,59 +99,59 @@ export default class SparkClient {
             }
         })
             .then(res => res.data)
-            .then( data => data.map(convertKeys) )
+            .then(data => data.map(convertKeys))
     }
 
     async getHoldings(): Promise<KeyValue[]> {
         this.validateAccountKey();
         return this.httpClient.get(PATHS.HOLDINGS_API,
             {
-                params: {accountKey: this.accountKey},
+                params: { accountKey: this.accountKey },
             }
         )
             .then((res: any) => res.data)
-            .then( data => data.map(convertKeys) )
+            .then(data => data.map(convertKeys))
     }
 
     async getHoldingsSummary(): Promise<KeyValue> {
         this.validateAccountKey();
         return this.httpClient.get(PATHS.HOLDINGS_SUMMARY_API,
             {
-                params: {accountKey: this.accountKey},
+                params: { accountKey: this.accountKey },
             }
         )
             .then((res: any) => res.data)
-            .then( convertKeys )
+            .then(convertKeys)
     }
 
     async getSecurities(): Promise<KeyValue> {
         this.validateAccountKey();
         return this.httpClient.get(PATHS.SECURITIES,
             {
-                params: {accountKey: this.accountKey},
+                params: { accountKey: this.accountKey },
             }
         )
             .then((res: any) => res.data)
-            .then( convertKeys )
-            .then( data => ({...data, Totals: convertKeys(data.Totals as KeyValue)}))
+            .then(convertKeys)
+            .then(data => ({ ...data, Totals: convertKeys(data.Totals as KeyValue) }))
     }
 
     /**
      * Get asset's daily prices across last 5 years
      * @param sparkAssetId (e.g. KRN_5109889)
      */
-    async getChartData(sparkAssetId) {
+    async getChartData(sparkAssetId): Promise<KeyValue[]>{
         return this.httpClient.get(PATHS.CHART_DATA, {
             params: {
                 uniqueTopicId: sparkAssetId,
                 chartType: 6,
-                itemCount:1825, // 365 days * 5 years
-                interval:1, // day ?
+                itemCount: 1825, // 365 days * 5 years
+                interval: 1, // day ?
                 isOnline: false,
             }
         })
-            .then( res => res.data)
-            .then ( dataArray => dataArray.map( convertKeys ))
+            .then(res => res.data)
+            .then(dataArray => dataArray.map(convertKeys))
     }
 
     setClientBearerToken(bearerToken: string): void {

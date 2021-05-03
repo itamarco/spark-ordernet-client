@@ -8,7 +8,7 @@ function createClient(): SparkClient{
     });
 }
 
-describe('index', () => {
+describe('unit tests - client', () => {
     it('SparkClient should be defined', () => {
        expect(SparkClient).toBeDefined();
     });
