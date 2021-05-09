@@ -34,6 +34,11 @@ export default class SparkClient {
                 'User-agent': USER_AGENT,
                 'Sec-Fetch-Mode': 'cors',
             },
+            transformResponse: data => {
+                if (data === "null")
+                    throw new Error(`Invalid response: ${data}`)
+                return JSON.parse(data);
+            }
             // validateStatus: (status: number) => status < 400,
         });
         this.username = config.userId;
@@ -77,7 +82,6 @@ export default class SparkClient {
             })
             .catch(err => {
                 this.logger.error(['failed to retrieve account key', err.message].join(' '));
-
                 return new Response(false, err.message);
             })
     }
